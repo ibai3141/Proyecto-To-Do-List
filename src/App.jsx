@@ -1,103 +1,62 @@
 import { useState, useEffect } from 'react'
 import { supabase } from './lib/supabase'
-import './App.css'  // <-- ESTO ES CRÍTICO
+
 
 function App() {
+
+  //
   const [tareas, setTareas] = useState([])
   const [nuevaTarea, setNuevaTarea] = useState('')
-  const [cargando, setCargando] = useState(true)
 
-  const cargarTareas = async () => {
-    setCargando(true)
-    const { data, error } = await supabase
-      .from('tareas')
-      .select('*')
-      .order('created_at', { ascending: false })
-    
-    if (error) {
-      console.error('Error al cargar tareas:', error)
-    } else {
+  // Cargar tareas al iniciar
+  useEffect(() => {
+    const cargarTareas = async () => {
+      const { data } = await supabase.from('tareas').select('*')
       setTareas(data || [])
     }
-    setCargando(false)
-  }
+    cargarTareas()
+  }, [])
 
+  // Añadir tarea
   const añadirTarea = async (e) => {
     e.preventDefault()
-    
-    if (nuevaTarea.trim() === '') return
+    if (!nuevaTarea.trim()) return
 
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from('tareas')
-      .insert([{ descripcion: nuevaTarea, completada: false }])
+      .insert([{ description: nuevaTarea }])
       .select()
 
-    if (error) {
-      console.error('Error al añadir tarea:', error)
-    } else {
-      setTareas([data[0], ...tareas])
+    if (data) {
+      setTareas([...tareas, data[0]])
       setNuevaTarea('')
     }
   }
 
-  const toggleCompletada = async (id, completadaActual) => {
-    const { error } = await supabase
-      .from('tareas')
-      .update({ completada: !completadaActual })
-      .eq('id', id)
-
-    if (error) {
-      console.error('Error al actualizar tarea:', error)
-    } else {
-      setTareas(tareas.map(tarea => 
-        tarea.id === id 
-          ? { ...tarea, completada: !completadaActual }
-          : tarea
-      ))
-    }
-  }
-
-  useEffect(() => {
-    cargarTareas()
-  }, [])
-
   return (
-    <div className="app">
+    <div style={{ padding: '20px' }}>
       <h1>Mi Lista de Tareas</h1>
       
-      <form onSubmit={añadirTarea} className="formulario">
+      <form onSubmit={añadirTarea}>
         <input
           type="text"
           value={nuevaTarea}
           onChange={(e) => setNuevaTarea(e.target.value)}
-          placeholder="Escribe una nueva tarea..."
-          className="input-tarea"
+          placeholder="Nueva tarea"
+          style={{ padding: '8px', width: '300px', marginRight: '10px' }}
         />
-        <button type="submit" className="boton-añadir">
+        <button type="submit" style={{ padding: '8px 20px' }}>
           Añadir
         </button>
       </form>
 
-      {cargando ? (
-        <p className="cargando">Cargando tareas...</p>
-      ) : (
-        <ul className="lista-tareas">
-          {tareas.map(tarea => (
-            <li key={tarea.id} className="tarea-item">
-              <input
-                type="checkbox"
-                checked={tarea.completada}
-                onChange={() => toggleCompletada(tarea.id, tarea.completada)}
-              />
-              <span style={{
-                textDecoration: tarea.completada ? 'line-through' : 'none'
-              }}>
-                {tarea.descripcion}
-              </span>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul style={{ marginTop: '20px' }}>
+        {tareas.map(tarea => (
+          <li key={tarea.id}>
+            {tarea.descripcion}
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
