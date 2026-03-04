@@ -83,7 +83,7 @@ function App() {
         {/* Recorre el array tareas y por cada elemento devuelve un <li>*/}
         {tareas.map(tarea => (
           <li key={tarea.id}>
-            {tarea.descripcion}
+            {tarea.description}
           </li>
         ))}
       </ul>
