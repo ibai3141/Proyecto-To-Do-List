@@ -17,9 +17,28 @@ function TareasCompletadas() {
     cargarCompletadas()
   }, [])
 
+  const eliminarTarea = async (id) =>{
+    try {
+        await supabase
+        .from('tareas')
+        .delete()
+        .eq('id', id)
+
+        setCompletadas(completadas.filter(c => c.id !== id))
+
+    } catch (error) {
+        console.error('Error:', error)
+
+    }
+
+  }
+
+
+
+
   return (
     <div className="app">
-      <h1>Tareas Completadas ✅</h1>
+      <h1>Tareas Completadas</h1>
       
       <button onClick={() => navigate('/')} className="boton-secundario">
         ⬅ Volver a Pendientes
@@ -34,6 +53,10 @@ function TareasCompletadas() {
               <span style={{color: '#888' }}>
                 {tarea.description}
               </span>
+              <button 
+                 onClick={() => eliminarTarea(tarea.id)}>
+                eliminar
+              </button>
             </li>
           ))}
         </ul>
