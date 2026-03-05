@@ -26,9 +26,9 @@ h1 {
   font-size: 28px;
 }
 
-.formulario {
-  display: flex;
-  gap: 10px;
+.titulo-principal {
+  text-align: center;
+  color: #333;
   margin-bottom: 30px;
 }
 

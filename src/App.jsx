@@ -6,6 +6,8 @@
 
 import { useState, useEffect } from 'react'
 import { supabase } from './lib/supabase'
+import './App.css'
+
 
 
 function App() {
@@ -63,7 +65,7 @@ function App() {
 
   return (
     <div style={{ padding: '20px' }}>
-      <h1>Mi Lista de Tareas</h1>
+      <h1 className = "titulo-principal">Mi Lista de Tareas</h1>
 
       {/* Campo de texto controlado: su valor es nuevaTarea y cada vez que el usuario escribe, se actualiza nuevaTarea con setNuevaTarea.*/}
       <form onSubmit={añadirTarea}>
