@@ -1,37 +1,49 @@
+/* Reset total */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Body como contenedor flexible que centra TODO */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background-color: #f0f2f5;
-  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;    /* Centra horizontalmente */
+  align-items: flex-start;    /* Arriba, no en medio vertical */
+  margin: 0;
+  padding: 20px;              /* Pequeño espacio en los bordes */
 }
 
+/* Contenedor principal de CADA página */
 .app {
+  width: 100%;
   max-width: 600px;
-  margin: 0 auto;
   background: white;
   border-radius: 10px;
   padding: 30px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
+/* Títulos centrados */
 h1 {
-  color: #1a1a1a;
   text-align: center;
+  color: #1a1a1a;
   margin-bottom: 30px;
   font-size: 28px;
 }
 
-.titulo-principal {
-  text-align: center;
-  color: #333;
+/* Formularios en fila */
+.formulario {
+  display: flex;
+  gap: 10px;
   margin-bottom: 30px;
+  justify-content: center;    /* Centra los elementos del formulario */
 }
 
+/* Input */
 .input-tarea {
   flex: 1;
   padding: 12px 15px;
@@ -39,13 +51,14 @@ h1 {
   border: 2px solid #e0e0e0;
   border-radius: 6px;
   outline: none;
-  transition: border-color 0.3s;
+  min-width: 200px;           /* Ancho mínimo para que no se encoja demasiado */
 }
 
 .input-tarea:focus {
   border-color: #4CAF50;
 }
 
+/* Botón principal (verde) */
 .boton-añadir {
   padding: 12px 24px;
   background-color: #4CAF50;
@@ -55,49 +68,105 @@ h1 {
   cursor: pointer;
   font-size: 16px;
   font-weight: 600;
-  transition: background-color 0.3s;
+  white-space: nowrap;         /* Evita que el texto del botón se parta */
 }
 
 .boton-añadir:hover {
   background-color: #45a049;
 }
 
-.lista-tareas {
-  list-style: none;
+/* Botón de navegación (azul) */
+.boton-nav {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  white-space: nowrap;
 }
 
+.boton-nav:hover {
+  background-color: #0056b3;
+}
+
+/* Botón secundario (gris, para volver) */
+.boton-secundario {
+  padding: 8px 16px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+  display: inline-block;       /* Para que respete el text-align del padre */
+}
+
+.boton-secundario:hover {
+  background-color: #5a6268;
+}
+
+/* Botón completar (rojo) */
+.boton-completar {
+  padding: 6px 12px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.boton-completar:hover {
+  background-color: #c82333;
+}
+
+/* Contenedor de botones de navegación */
+.botones-navegacion {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;            /* En móvil, se apilan */
+}
+
+/* Lista de tareas */
+.lista-tareas {
+  list-style: none;
+  width: 100%;                /* Ocupa todo el ancho del contenedor */
+}
+
+/* Cada ítem de tarea */
 .tarea-item {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   padding: 12px;
   background-color: #f8f9fa;
   margin-bottom: 8px;
   border-radius: 6px;
   border-left: 4px solid #4CAF50;
-  transition: transform 0.2s;
+  width: 100%;
 }
 
-.tarea-item:hover {
-  transform: translateX(5px);
-  background-color: #f1f3f4;
-}
-
-.tarea-item input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  accent-color: #4CAF50;
+.tarea-item.completada {
+  border-left-color: #dc3545;
+  opacity: 0.8;
 }
 
 .tarea-item span {
-  margin-left: 12px;
-  font-size: 16px;
-  color: #333;
+  word-break: break-word;     /* Evita que textos largos se desborden */
+  padding-right: 10px;         /* Espacio antes del botón */
 }
 
-.cargando {
+/* Mensaje cuando no hay tareas */
+.mensaje-vacio {
   text-align: center;
-  color: #666;
-  padding: 20px;
+  color: #999;
+  margin-top: 50px;
   font-style: italic;
 }
+
