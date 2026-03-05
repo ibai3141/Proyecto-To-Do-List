@@ -75,6 +75,22 @@ h1 {
   background-color: #45a049;
 }
 
+.boton-eliminar {
+  padding: 12px 24px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;         /* Evita que el texto del botón se parta */
+}
+
+.boton-eliminar:hover {
+  background-color: #bb2130;
+}
+
 /* Botón de navegación (azul) */
 .boton-nav {
   padding: 10px 20px;

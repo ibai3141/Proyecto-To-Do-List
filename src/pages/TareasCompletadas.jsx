@@ -33,9 +33,6 @@ function TareasCompletadas() {
 
   }
 
-
-
-
   return (
     <div className="app">
       <h1>Tareas Completadas</h1>
@@ -54,7 +51,8 @@ function TareasCompletadas() {
                 {tarea.description}
               </span>
               <button 
-                 onClick={() => eliminarTarea(tarea.id)}>
+                 onClick={() => eliminarTarea(tarea.id)}
+                 className="boton-eliminar">
                 eliminar
               </button>
             </li>
